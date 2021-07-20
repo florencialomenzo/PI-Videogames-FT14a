@@ -1,7 +1,16 @@
-.App {
+/* .buscador{
+  background-color: black;
+} */
+/* .App {
   text-align: center;
-}
-
+  background-image: url('./Components/Background.gif');
+  background-position: center center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+height: 100%;
+} */
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +44,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

@@ -10,18 +10,21 @@ const server = express();
 
 server.name = 'API';
 
-server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-server.use(bodyParser.json({ limit: '50mb' }));
+server.use(express.urlencoded({ extended: true, limit: '50mb' })); //Para parsear nuestros JSON de forma correcta
+server.use(express.json({ limit: '50mb' })); //Para interpretar los JSON
 server.use(cookieParser());
-server.use(morgan('dev'));
+server.use(morgan('dev')); //Da un output en la consola cada vez que hacemos una request. Es para
+//saber lo que está pasando en cada momento.
 server.use((req, res, next) => {
+  //Aqui setearemos nuestros headers
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
+  next(); //para que la ejecución no corte aquí si no que siga o en las rutas o en lo errores
 });
 
+//Aquí las rutas que las traeremos del archivo index.js de la carpeta routes
 server.use('/', routes);
 
 // Error catching endware.

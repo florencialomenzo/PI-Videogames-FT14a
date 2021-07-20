@@ -1,0 +1,37 @@
+/* .fondo{
+    height: 100vh;
+    background-color: #161616;
+    color: #161616;
+} */
+/* .videogamesCard1{
+    background-color: #161616;
+    height: 100vh;
+    margin-top: 0px;
+    margin-left: 0px;
+    display: flex;
+    flex-flow: row wrap;
+    color:black;
+    justify-content: space-between;
+} */
+
+.videogamesCard1{
+    background-color:#161616;
+}
+
+.imageCard1{
+    color:white;
+    margin-top: 10px;
+    margin-left: 20px;
+    background-color:#161616;
+    height: 200px;
+    width: 300px;
+    border-radius: 20px;
+}
+
+.titleCard1{
+    align-items: center;
+    color: white;
+}
+.buscar{
+    margin-top: 0px;;
+}
