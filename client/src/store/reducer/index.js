@@ -1,7 +1,8 @@
 const initialState = {
      videogames: [],
      videogamesFounded : [],
-     videogameDetail: {}
+     videogameDetail: {},
+     genres: []
   };
 
   function reducer(state = initialState, action) {
@@ -23,6 +24,12 @@ const initialState = {
           ...state,
           videogameDetail: action.payload
         }
+    }
+    if(action.type === "GET_GENRES"){
+      return {
+        ...state,
+        genres: action.payload
+      }
     }
     return state;
   }

@@ -1,6 +1,6 @@
 
 import React, {useEffect,useState} from 'react';
-import './NavBar.css';
+import './Buscador.css';
 import {Link, useHistory} from 'react-router-dom';
 import VideogamesFounded from '../VideogamesFounded';
 

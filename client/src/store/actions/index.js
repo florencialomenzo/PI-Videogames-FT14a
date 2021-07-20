@@ -26,10 +26,17 @@ export function getVideogameDetail(id){
           .then(response => response.json())
           .then(json => {
             dispatch({ type: "GET_VIDEOGAME_DETAIL", payload: json });
-          });
+          });       
       };
+      
   }
-// const axios = require('axios');
+
+  // export function getGenres(){
+  //   return function(dispatch){
+  //     return fetch()
+  //   }
+  // }
+const axios = require('axios');
 
 // export const GET_VIDEOGAME_DETAIL = "GET_VIDEOGAME_DETAIL"
 // export function getVideogameDetail(id) {

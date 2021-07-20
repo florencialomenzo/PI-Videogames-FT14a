@@ -15,7 +15,9 @@ function getAllVideogames(req,res,next){
         .then((results) => {
             const [videogamesDb,videogamesApi] = results;
             const response = videogamesDb.concat(videogamesApi.results)
-            res.json(response);
+            var array1=[];
+            response.forEach((elem,index)=>{if (index<15){array1.push(elem)}})
+            res.json(array1);
         })
         .catch(error => next(error))
 
@@ -27,7 +29,9 @@ function getAllVideogames(req,res,next){
         .then((results) => {
             const [videogamesDb, videogamesApi] = results;
             const response = videogamesDb.concat(videogamesApi.results)
-            res.json(response);
+            var array2=[];
+            response.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
+            res.json(array2);
         })
         .catch(error => next(error))
     }        
