@@ -10,9 +10,14 @@ function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
     console.log(id);
     console.log(videogameDetail)
 
+    async function getDetail(){
+        await getVideogameDetail(id)
+    }
     useEffect(() => {
-        getVideogameDetail(id)
+        getDetail()
+        // getVideogameDetail(id)
     }, [])
+   
     
     return (
         <div className='videogamesCard_Detail'>
@@ -24,7 +29,8 @@ function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
                     <br/>
                     <div>
                         <span className='rating'>{videogameDetail.rating} &#11088;</span>
-                        <span> {videogameDetail.genres.map((genre) => {
+                        <span> 
+                            {videogameDetail.genres?.map((genre) => {
                         return (
                         <span>{genre.name+' - '}</span>)
                         
@@ -33,7 +39,7 @@ function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
                         <span> Fecha de lanzamiento: {videogameDetail.released}</span> 
                         <br/>
                         <br/>
-                        <span>Plataformas: {videogameDetail.platforms.map(e =>{ return(
+                        <span>Plataformas: {videogameDetail.platforms?.map(e =>{ return(
                             <span>{e.platform.name}{'/ '}</span>)
                         })}&#127918;</span> 
 

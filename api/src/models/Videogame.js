@@ -15,13 +15,18 @@ module.exports = (sequelize) => {
     },
     description: {
       type: DataTypes.TEXT,
-
+      allowNull: false,
     },
-    plataforma: {
+    plataformas: {
       type: DataTypes.TEXT,
+      allowNull: false,
     },
-    image: {
+    lanzamiento: {
+      type: DataTypes.DATE,
+    },
+    rating:{
       type: DataTypes.STRING
     }
+
   });
 };
