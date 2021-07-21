@@ -100,3 +100,12 @@ export function getVideogamesAPI(){
     })
   }
 }
+export function getVideogamesOrder(order,arreglo) {
+  return function(dispatch) {
+    if(order==='Name A-Z'){ arreglo[0].sort((a, b)=> a.Nombre.localeCompare(b.Nombre) );}
+    if(order==='Name Z-A'){ arreglo[0].sort((a, b)=> b.Nombre.localeCompare(a.Nombre) )}
+    if(order==='Mayor Rating'){arreglo[0].sort((a, b)=> a.rating.localeCompare(b.rating))};
+    if(order==='Menor Rating'){arreglo[0].sort((a, b)=> b.rating.localeCompare(a.rating))}; 
+ 
+  }
+}

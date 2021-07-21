@@ -50,6 +50,13 @@ const initialState = {
         videogames: action.payload
       }
     }
+    if(action.type === "ORDER_VIDEOGAMES"){
+      // let newArray=action.payload[0].sort((a, b)=> a.name.localeCompare(b.name))
+      return {
+        ...state,
+        videogames: action.payload
+      }
+    }
 
     return state;
   }

@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import {connect} from 'react-redux';
-import {getGenres,filterByGenre, getMyVideogames,getVideogamesAPI} from '../../store/actions/index';
+import {getGenres,filterByGenre, getMyVideogames,getVideogamesAPI,getVideogamesOrder} from '../../store/actions/index';
 import {Link, useHistory} from 'react-router-dom';
 import './filter.css'
 
@@ -37,10 +37,29 @@ function Filter(props){
             if(event.target.value==='Mis videojuegos') props.getMyVideogames(); 
             if(event.target.value==='Videojuegos ya existentes') props.getVideogamesAPI();      
           }
+
+          function handleSubmitOrder(event){
+              console.log(event.target.value)
+              props.getVideogamesOrder(event.target.value,props.videogames);
+          }
+
+
     return(
         
+        <div className='filtros'>
+            <div class="content-select">
+            <label>ORDER BY: </label>
+	        <select onChange={handleSubmitOrder}>
+                <option key={0} ></option>
+                <option key={1} >Name A-Z</option>
+                <option key={2} >Name Z-A</option>
+                <option key={3} >Mayor Rating</option>
+                <option key={4} >Menor Rating</option>
+	        </select>
+	    <i></i>
+        </div>
         <div class="content-select">
-            <label>Filter by Genre: </label>
+            <label>FILTER BY GENRE: </label>
 	        <select onChange={handleSubmitGenres}>
                 {props.genres?.map(genre =>{
                     return(
@@ -48,13 +67,17 @@ function Filter(props){
                 })}
 	        </select>
 	    <i></i>
-        <label>Filter: </label>
+        </div>
+        <div class="content-select">
+        <label>MY VIDEOGAMES </label>
 	        <select onChange={handleSubmit}>
                 <option key={0} ></option>
                 <option key={1} >Mis videojuegos</option>
                 <option key={2} >Videojuegos ya existentes</option>
 	        </select>
 	    <i></i>
+        </div>
+        
        
         </div>
     )
@@ -75,6 +98,9 @@ const mapDispatchToProps = dispatch => {
         },
         getVideogamesAPI: videogames =>{
             dispatch(getVideogamesAPI(videogames))
+        },
+        getVideogamesOrder: videogames =>{
+            dispatch(getVideogamesOrder(videogames))
         }
         
     }
