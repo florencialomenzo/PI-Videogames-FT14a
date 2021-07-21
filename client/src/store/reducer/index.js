@@ -1,6 +1,7 @@
 const initialState = {
      videogames: [],
      videogamesFounded : [],
+     videogamesFiltered : [],
      videogameDetail: {},
      genres: []
   };
@@ -31,6 +32,25 @@ const initialState = {
         genres: action.payload
       }
     }
+    if(action.type === "GET_BY_GENRE"){
+      return {
+        ...state,
+        videogamesFiltered: action.payload
+      }
+    }
+    if(action.type === "GET_MY_VIDEOGAMES"){
+      return {
+        ...state,
+        videogames: action.payload
+      }
+    }
+    if(action.type === "GET_VIDEOGAMES_API"){
+      return {
+        ...state,
+        videogames: action.payload
+      }
+    }
+
     return state;
   }
   

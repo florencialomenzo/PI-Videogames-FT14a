@@ -8,6 +8,8 @@ import VideogameDetail from './Components/VideogameDetail';
 import Nav from './Components/Nav/index';
 import VideogamesFounded from './Components/VideogamesFounded';
 import AddVideogame from './Components/AddVideogame/index';
+import Filter from './Components/Filter/index';
+import VideogamesFilteredByGenre from './Components/VideogamesFilteredByGenre';
 
 function App() {
   return (
@@ -16,10 +18,12 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/" component={Nav} />
           <Route path="/home" component={Buscador} />
+          <Route path="/home" component={Filter} />
+          <Route path="/home/filter/:genre" component={VideogamesFilteredByGenre} />
           <Route path="/home/founded/:name" component={VideogamesFounded} />
           <Route exact path="/home" component={ShowVideogames} />
           <Route exact path="/home/:id" component={VideogameDetail} />
-          {/* <Route exact path="/addvideogame" component={AddVideogame}/> */}
+          <Route exact path="/addvideogame" component={AddVideogame}/>
       </React.Fragment>
     </div>
   );

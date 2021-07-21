@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 function getAllVideogames(req,res,next){
 
     if (req.query.name){ //GET /videogames?name="..."
-        const videogamesDb = Videogame.findAll({where: {name: {[Op.substring]: req.query.name}}})
+        const videogamesDb = Videogame.findAll({where: {name: {[Op.substring]: req.query.name}},include: Genres})
         const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&search=${req.query.name}`)
         .then(el => el.json())
     Promise.all([videogamesDb, videogamesApi])
@@ -22,16 +22,17 @@ function getAllVideogames(req,res,next){
         .catch(error => next(error))
 
     }else{
-    const videogamesDb = Videogame.findAll()
-    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}`)
+    const videogamesDb = Videogame.findAll({include: Genres})
+    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
         .then(el => el.json())
     Promise.all([videogamesDb, videogamesApi])
         .then((results) => {
             const [videogamesDb, videogamesApi] = results;
             const response = videogamesDb.concat(videogamesApi.results)
-            var array2=[];
-            response.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
-            res.json(array2);
+            // var array2=[];
+            // response.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
+            // res.json(array2);
+            res.json(response)
         })
         .catch(error => next(error))
     }        
@@ -40,40 +41,146 @@ function getAllVideogames(req,res,next){
 async function getVideogameById(req,res,next){
     const id = req.params.id;
     if(id.length>10){
-        Videogame.findByPk(id)
+        Videogame.findByPk(id,{include: Genres})
             .then(videogame => res.json(videogame))
             .catch(error => next(error));
     }else{
     await fetch(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
             .then(response => response.json())
-            .then(videogames => res.json(videogames))
+            .then(videogames => {
+            //     var array2=[];
+            // videogames.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
+            res.json(videogames)})
             .catch(error => next(error))
         }
 }
 
+function getMyVideogames(req,res,next){
+    Videogame.findAll({include: Genres})
+        .then(videogame => res.json(videogame))
+        .catch(error => next(error))
+}
+async function getVideogamesAPI(req,res,next){
+    
+    await fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+            .then(response => response.json())
+            .then(videogames => {
+            //     var array2=[];
+            // videogames.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
+            res.json(videogames.results)})
+            .catch(error => next(error))
+
+    // const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
+    //     .then(el => el.json())
+    // const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)
+    //     .then(el2 => el2.json())
+    // const videogamesApi3 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+    //     .then(el3 => el3.json())
+    // const videogamesApi4 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=7`)
+    //     .then(el4 => el4.json())
+    // const videogamesApi5 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=8`)
+    //     .then(el5 => el5.json())
+    // Promise.all([videogamesApi, videogamesApi2,videogamesApi3,videogamesApi4, videogamesApi5])
+    //     .then((results) => {
+    //         const [videogamesApi, videogamesApi2, videogamesApi3, videogamesApi4, videogamesApi5] = results;
+    //         const resultado = videogamesApi.concat(videogamesApi2.concat(videogamesApi3.concat(videogamesApi4.concat(videogamesApi5))))
+    //         res.send(resultado)
+    //     })
+    }
+
+
 async function addVideogame(req,res,next){
     
-    const {name, description, plataformas, lanzamiento, rating, genres} = req.body
+    const {name, description_raw, plataformas, lanzamiento, rating, genres} = req.body
     //Crea el juego
     const newVideogame = await Videogame.create({
         id: uuidv4(),
         name: name,
-        description: description,
+        description_raw: description_raw,
         plataformas: plataformas,
         lanzamiento: lanzamiento,
         rating: rating
     })
-    //agrega el genero en la BD
+    
     const add_genres = await Genres.findAll({
-        where: { name: genres }
+        where: { id: {
+            [Op.in]: genres
+        } }
     })
-    await newVideogame.addGenres(add_genres);
+    await newVideogame.setGenres(add_genres);
     return res.json(newVideogame);
+}
+
+function filterByGenres(req,res,next){
+    const videogamesDb = Videogame.findAll({include: Genres})
+    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
+        .then(el => el.json())
+    const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)
+        .then(el2 => el2.json())
+    const videogamesApi3 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+        .then(el3 => el3.json())
+    const videogamesApi4 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=7`)
+        .then(el4 => el4.json())
+    const videogamesApi5 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=8`)
+        .then(el5 => el5.json())
+    Promise.all([videogamesDb, videogamesApi, videogamesApi2,videogamesApi3,videogamesApi4, videogamesApi5])
+        .then((results) => {
+            const [videogamesDb, videogamesApi, videogamesApi2, videogamesApi3, videogamesApi4, videogamesApi5] = results;
+            var dbFiltered=[];
+            for(var i=0;i<videogamesDb.length;i++){
+                videogamesDb[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){dbFiltered.push(videogamesDb[i])}})
+                }
+            var rest = 15-dbFiltered.length    
+            var apiFiltered=[];
+            for(var i=0;i<videogamesApi.results.length;i++){
+                videogamesApi.results[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){apiFiltered.push(videogamesApi.results[i])}})
+            }
+            for(var i=0;i<videogamesApi2.results.length;i++){
+                videogamesApi2.results[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){apiFiltered.push(videogamesApi2.results[i])}})
+            }
+            for(var i=0;i<videogamesApi3.results.length;i++){
+                videogamesApi3.results[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){apiFiltered.push(videogamesApi3.results[i])}})
+            }
+            for(var i=0;i<videogamesApi4.results.length;i++){
+                videogamesApi4.results[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){apiFiltered.push(videogamesApi4.results[i])}})
+            }
+            for(var i=0;i<videogamesApi5.results.length;i++){
+                videogamesApi5.results[i].genres.forEach(elem => {
+                    if(elem.name===req.params.genre){apiFiltered.push(videogamesApi5.results[i])}})
+            }
+            console.log('El arreglo de la Api es: '+apiFiltered)
+            console.log(req.params.genre)
+            var j=1;
+            // while (apirFiltered.length!==rest){
+            // j=j+1;
+            // fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=${j}`)
+            //     .then(el => el.json())
+            //     .then((json) => {
+            //         for(var i=1;i<json.results.length;i++){
+            //             json.results[i].genres.forEach(elem => {
+            //                 if(elem.name===req.params.genre){json.push(json.results[i])}})
+            //             }})}
+            
+            const response = apiFiltered.concat(dbFiltered)
+            // console.log(response)
+            var j=1;
+            
+            res.json(response);
+        })
+        .catch(error => next(error))
 }
 
 
 module.exports = {
     getAllVideogames,
     getVideogameById,
-    addVideogame
+    addVideogame,
+    filterByGenres,
+    getMyVideogames,
+    getVideogamesAPI
 }

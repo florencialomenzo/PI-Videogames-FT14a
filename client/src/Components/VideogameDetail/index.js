@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { getVideogameDetail } from "../../store/actions/index";
 import './videogameDetail.css';
+import '../../game.jpg';
 
 
 function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
@@ -23,24 +24,27 @@ function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
         <div className='videogamesCard_Detail'>
             <h3 className='titleDetail'>{videogameDetail.name}</h3>
             <div className="videogameDetail">
-                <img  src={videogameDetail.background_image} className="imageDetail" alt="No se encontro" height="200px" />
+                <img  src={videogameDetail.background_image} className="imageDetail"/>
                 <div className='infoDetail'>
                     <div className='description'>{videogameDetail.description_raw}</div>
                     <br/>
                     <div>
                         <span className='rating'>{videogameDetail.rating} &#11088;</span>
-                        <span> 
+                        <span>
                             {videogameDetail.genres?.map((genre) => {
                         return (
-                        <span>{genre.name+' - '}</span>)
+                        <span key={genre.id}>{genre.name+' - '}</span>)
                         
                         })}
                         <span id="emoji">&#x1F3AF;</span>
-                        <span> Fecha de lanzamiento: {videogameDetail.released}</span> 
+                        <span> Fecha de lanzamiento: {videogameDetail.released} {videogameDetail.lanzamiento?.slice(0,10)}</span> 
                         <br/>
                         <br/>
-                        <span>Plataformas: {videogameDetail.platforms?.map(e =>{ return(
-                            <span>{e.platform.name}{'/ '}</span>)
+                        <span> {"Plataformas: "} 
+                            <span>{videogameDetail.plataformas}</span>
+                            {videogameDetail.platforms?.map(e =>{ 
+                            return(
+                                <span key={e.platform.id}>{e.platform.name}{'/ '}</span>)
                         })}&#127918;</span> 
 
                 </span>

@@ -38,7 +38,7 @@ export function getVideogames() {
             url: `http://localhost:3001/videogame`,
             data:{
               name: body.name,
-              description: body.description,
+              description_raw: body.description_raw,
               lanzamiento: body.lanzamiento,
               rating: body.rating,
               plataformas: body.plataformas,
@@ -52,19 +52,12 @@ export function getVideogames() {
     return function(dispatch){
       return fetch(`http://localhost:3001/genres`)
       .then(response => response.json())
-      .then(genres => {
-        dispatch({type: 'GET_GENRES', payload:genres})
+      .then(json => {
+        dispatch({type: 'GET_GENRES', payload: json})
       })
     }
  }
-// export function resetStore(){
-//   dispatch({type:'RESET_STORE',payload})
-// }
-  // export function getGenres(){
-  //   return function(dispatch){
-  //     return fetch()
-  //   }
-  // }
+
 const axios = require('axios');
 
 export const GET_VIDEOGAME_DETAIL = "GET_VIDEOGAME_DETAIL"
@@ -78,4 +71,32 @@ export function getVideogameDetail(id) {
                 })
             })
     }
+}
+export function getByGenre(genre){
+  return function(dispatch){
+    return fetch(`http://localhost:3001/filterGenres/${genre}`)
+    .then(response => response.json())
+    .then(json => {
+      dispatch({type: "GET_BY_GENRE", payload: json})
+    })
+  }
+}
+
+export function getMyVideogames(){
+  return function(dispatch){
+    return fetch(`http://localhost:3001/myvideogames`)
+    .then(response => response.json())
+    .then(json => {
+      dispatch({type: "GET_MY_VIDEOGAMES", payload: json})
+    })
+  }
+}
+export function getVideogamesAPI(){
+  return function(dispatch){
+    return fetch(`http://localhost:3001/videogamesAPI`)
+    .then(response => response.json())
+    .then(json => {
+      dispatch({type: "GET_VIDEOGAMES_API", payload: json})
+    })
+  }
 }
