@@ -67,14 +67,6 @@ function getMyVideogames(req,res,next){
 }
 function getVideogamesAPI(req,res,next){
     
-    // await fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
-    //         .then(response => response.json())
-    //         .then(videogames => {
-    //         //     var array2=[];
-    //         // videogames.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
-    //         res.json(videogames.results)})
-    //         .catch(error => next(error))
-
     const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
         .then(el => el.json())
     const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)

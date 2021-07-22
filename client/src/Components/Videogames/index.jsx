@@ -4,17 +4,28 @@ import {connect} from 'react-redux';
 import {getVideogames} from '../../store/actions/index';
 import {Link} from 'react-router-dom';
 import game from '../../game.jpg';
+import Pagination from '../Pagination/index';
 
-function ShowVideogames(props) {
-    // const [state,setState]=useState("");
+function ShowVideogames({videogames,getVideogames}) {
+    const [currentPage,setCurrentPage]=useState(1);
+    const [postsPerPage] = useState(15);
+
 
     useEffect(() => {
-        props.getVideogames();
+        
+        getVideogames();
+            
     }, [])
 
+    const indexOfLastPost = currentPage*postsPerPage;
+    const indexOfFirstPost = indexOfLastPost-postsPerPage;
+    const currentPosts = videogames.slice(indexOfFirstPost,indexOfLastPost)
+    const pagination= (pageNumber) => setCurrentPage(pageNumber)
+    
         return (
             <div className='videogamesCard'>
-                {props.videogames?.map(videogame => {
+                
+                {currentPosts?.map(videogame => {
                 return (
                 <div className='videogameCard2' key={videogame.id}>
                     
@@ -34,31 +45,12 @@ function ShowVideogames(props) {
 
                     </span>
                 </div>
-                // <div>{videogame.genres?.map(genre =>{
-                //     return(
-                //         <div>{genre.name===state?(<div>
-                //              <div className='videogameCard2' key={videogame.id}>
-                    
-                //          <Link to={`/home/${videogame.id}`} className='link'> 
-                //              <img src={videogame.background_image} className='imageCard'/>
-                //              <h4 className='titleCard'>{videogame.name}</h4>
-                //          </Link>
-                //          <span className='genres'> {videogame.genres?.map(genre => {
-                //                return (
-                //                 <span className='genero' key={genre.id}>{genre.name+' - '}</span>)
-                                
-                //                 })}
-                //                 <span id="emoji">&#x1F3AF;</span>
-    
-                //         </span>
-                //     </div>
-
-                //         </div>):(<div>{null}</div>)}</div>
-                //     )
-                // })}</div>
-                )
-                })}
+                )})}
             
+            <div>
+                <Pagination postsPerPage={postsPerPage} totalPosts={videogames.length} paginate={pagination}/>
+            </div>
+
             </div>   
     )
 }

@@ -1,6 +1,5 @@
 const initialState = {
      videogames: [],
-     videogamesFounded : [],
      videogameDetail: {},
      genres: []
   };
@@ -53,7 +52,6 @@ const initialState = {
       return {
         ...state,
         videogames: action.payload,
-        videogamesFounded: action.payload
       }
     }
 

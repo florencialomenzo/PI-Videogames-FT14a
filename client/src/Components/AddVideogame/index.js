@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import './addVideogame.css';
 import {addVideogames,getGenres} from '../../store/actions/index';
+import { useHistory } from 'react-router-dom';
 
 
 function AddVideogame(props){
@@ -50,6 +51,7 @@ function AddVideogame(props){
             lanzamiento:'',
             genres:[],
         });
+        alert('Se creo el videojuego');
     }
 
     return(
