@@ -1,46 +1,24 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 import {connect} from 'react-redux';
-import {getGenres,filterByGenre, getMyVideogames,getVideogamesAPI,getVideogamesOrder} from '../../store/actions/index';
-import {Link, useHistory} from 'react-router-dom';
+import {getGenres,getMyVideogames,getVideogamesAPI,getVideogamesOrder,getByGenre} from '../../store/actions/index';
 import './filter.css'
 
 function Filter(props){
-
-    // const [genero,setGenero]=useState('');
    
     useEffect(()=>{
         props.getGenres();
     },[]);
 
-    // const handleChange = function(e) {
-    //     e.preventDefault();
-    //     setGenero(e.target.value);
-    //     props.filterByGenre(genero);
-    //     setGenero('');
-    // }
-    const [filter, setFilter] = useState('')
-    const [videogames,setVideogames] = useState('')
-    const history= useHistory()
-     //hook que cambia la url a mano ;)
-
-//    function handleChange(event) {
-//             setState(event.target.value);
-//           }
     function handleSubmitGenres(event) {
-            console.log(event.target.value);
-            setFilter(event.target.value);  
-            history.push(`/home/filter/${event.target.value}`)       
+            props.getByGenre(event.target.value);     
           }
           function handleSubmit(event) {
-            console.log(event.target.value);
-            setVideogames(event.target.value); 
             if(event.target.value==='Mis videojuegos') props.getMyVideogames(); 
             if(event.target.value==='Videojuegos ya existentes') props.getVideogamesAPI();      
           }
 
-          function handleSubmitOrder(event){
-              console.log(event.target.value)
-              props.getVideogamesOrder(event.target.value,props.videogames);
+          function handleSubmitOrder(event){              
+            props.getVideogamesOrder(event.target.value,props.videogames);
           }
 
 
@@ -99,8 +77,11 @@ const mapDispatchToProps = dispatch => {
         getVideogamesAPI: videogames =>{
             dispatch(getVideogamesAPI(videogames))
         },
-        getVideogamesOrder: videogames =>{
-            dispatch(getVideogamesOrder(videogames))
+        getVideogamesOrder: (type,videogames) =>{
+            dispatch(getVideogamesOrder(type,videogames))
+        },
+        getByGenre: (genre) =>{
+            dispatch(getByGenre(genre))
         }
         
     }

@@ -1,7 +1,6 @@
 const initialState = {
      videogames: [],
      videogamesFounded : [],
-     videogamesFiltered : [],
      videogameDetail: {},
      genres: []
   };
@@ -16,7 +15,7 @@ const initialState = {
     if (action.type === "SEARCH_VIDEOGAMES") {
       return {
         ...state,
-        videogamesFounded: action.payload 
+        videogames: action.payload 
       };
   }
 
@@ -35,7 +34,7 @@ const initialState = {
     if(action.type === "GET_BY_GENRE"){
       return {
         ...state,
-        videogamesFiltered: action.payload
+        videogames: action.payload
       }
     }
     if(action.type === "GET_MY_VIDEOGAMES"){
@@ -51,10 +50,10 @@ const initialState = {
       }
     }
     if(action.type === "ORDER_VIDEOGAMES"){
-      // let newArray=action.payload[0].sort((a, b)=> a.name.localeCompare(b.name))
       return {
         ...state,
-        videogames: action.payload
+        videogames: action.payload,
+        videogamesFounded: action.payload
       }
     }
 

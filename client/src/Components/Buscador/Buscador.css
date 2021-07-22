@@ -14,7 +14,7 @@
     justify-content: space-between;
 } */
 
-.videogamesCard1{
+/* .videogamesCard1{
     background-color:#161616;
 }
 
@@ -34,4 +34,31 @@
 }
 .buscar{
     margin-top: 0px;;
+} */
+.Search{
+    display: relative;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    margin-left: 350px;
+    width: 1000px;
+    padding: 30px;
+}
+.input{
+    width: 700px;
+    height: 25px;
+    border-radius: 30px;
+    background-color: rgb(48, 48, 48);
+    color:white;
+    font-size: 20px;
+    padding: 10px;
+    padding-left: 30px;
+    
+}
+.buscador{
+    margin-left: 10px;
+    position: absolute;
+}
+.buscador:hover{
+    width: 50px;
 }

@@ -3,20 +3,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { getVideogameDetail } from "../../store/actions/index";
 import './videogameDetail.css';
-import '../../game.jpg';
+import game from '../../game.jpg';
 
 
 function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
     const id = match.params.id
-    console.log(id);
-    console.log(videogameDetail)
 
     async function getDetail(){
         await getVideogameDetail(id)
     }
     useEffect(() => {
         getDetail()
-        // getVideogameDetail(id)
+        
     }, [])
    
     
@@ -24,7 +22,7 @@ function VideogameDetail({getVideogameDetail,videogameDetail,match}) {
         <div className='videogamesCard_Detail'>
             <h3 className='titleDetail'>{videogameDetail.name}</h3>
             <div className="videogameDetail">
-                <img  src={videogameDetail.background_image} className="imageDetail"/>
+            {videogameDetail.id?.length>10?(<img src={game} className='imageDetail'/>):<img src={videogameDetail.background_image} className='imageDetail' alt=""/>}
                 <div className='infoDetail'>
                     <div className='description'>{videogameDetail.description_raw}</div>
                     <br/>

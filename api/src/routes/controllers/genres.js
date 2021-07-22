@@ -1,10 +1,8 @@
 const {Genres} = require('../../db');
-const {v4: uuidv4} = require('uuid');
 const {YOUR_API_KEY} = process.env;
 const fetch = require('node-fetch');
 
 function getGenres(req, res ){
-    console.log('generos')
     fetch(`https://api.rawg.io/api/genres?key=${YOUR_API_KEY}`)
         .then(response => response.json())
         .then(genres => {

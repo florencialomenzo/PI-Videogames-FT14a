@@ -40,8 +40,10 @@
     margin-left: 15px;
     align-items: center;
     color: white;
-    font-size: 22px;
+    font-size: 20px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+    padding:0px;
+    margin-top:0px;
 
 }
 .genres{
@@ -50,9 +52,15 @@
     padding:10px;
     margin-left: 15px;
     opacity: 70%;
+    font-family:sans-serif;
+    font-size: 20px;
 }
 .genero{
     color: white;
     align-items: center;
-    font-size: 19px;
+    font-size: 15px;
+}
+.puntaje{
+    color:white;
+    margin-left: 225px;
 }

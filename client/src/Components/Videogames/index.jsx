@@ -20,14 +20,17 @@ function ShowVideogames(props) {
                     
                     <Link to={`/home/${videogame.id}`} className='link'> 
                         {videogame.id.length>10?(<img src={game} className='imageCard'/>):<img src={videogame.background_image} className='imageCard' alt=""/>}
+                        <span id="emoji" className='puntaje'>&#11088;+{videogame.rating}</span>
                         <h4 className='titleCard'>{videogame.name}</h4>
                     </Link>
-                    <span className='genres'> {videogame.genres?.map(genre => {
+                        <span className='genres'> {videogame.genres?.map(genre => {
                            return (
                             <span className='genero' key={genre.id}>{genre.name+' - '}</span>)
                             
                             })}
                             <span id="emoji">&#x1F3AF;</span>
+                            <br/>
+                            
 
                     </span>
                 </div>

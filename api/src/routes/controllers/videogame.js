@@ -23,16 +23,21 @@ function getAllVideogames(req,res,next){
 
     }else{
     const videogamesDb = Videogame.findAll({include: Genres})
-    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
         .then(el => el.json())
-    Promise.all([videogamesDb, videogamesApi])
-        .then((results) => {
-            const [videogamesDb, videogamesApi] = results;
-            const response = videogamesDb.concat(videogamesApi.results)
-            // var array2=[];
-            // response.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
-            // res.json(array2);
-            res.json(response)
+    const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)
+        .then(el2 => el2.json())
+    const videogamesApi3 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+        .then(el3 => el3.json())
+    const videogamesApi4 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=7`)
+        .then(el4 => el4.json())
+    const videogamesApi5 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=8`)
+        .then(el5 => el5.json())
+    Promise.all([videogamesDb,videogamesApi, videogamesApi2,videogamesApi3,videogamesApi4, videogamesApi5])
+        .then((response) => {
+            const [videogamesDb,videogamesApi, videogamesApi2, videogamesApi3, videogamesApi4, videogamesApi5] = response;
+            const resultado = videogamesApi.results.concat(videogamesApi2.results.concat(videogamesApi3.results.concat(videogamesApi4.results.concat(videogamesApi5.results.concat(videogamesDb)))))         
+            res.send(resultado)
         })
         .catch(error => next(error))
     }        
@@ -60,32 +65,32 @@ function getMyVideogames(req,res,next){
         .then(videogame => res.json(videogame))
         .catch(error => next(error))
 }
-async function getVideogamesAPI(req,res,next){
+function getVideogamesAPI(req,res,next){
     
-    await fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
-            .then(response => response.json())
-            .then(videogames => {
-            //     var array2=[];
-            // videogames.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
-            res.json(videogames.results)})
-            .catch(error => next(error))
+    // await fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+    //         .then(response => response.json())
+    //         .then(videogames => {
+    //         //     var array2=[];
+    //         // videogames.forEach((elem,index)=>{if (index<15){array2.push(elem)}})
+    //         res.json(videogames.results)})
+    //         .catch(error => next(error))
 
-    // const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
-    //     .then(el => el.json())
-    // const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)
-    //     .then(el2 => el2.json())
-    // const videogamesApi3 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
-    //     .then(el3 => el3.json())
-    // const videogamesApi4 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=7`)
-    //     .then(el4 => el4.json())
-    // const videogamesApi5 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=8`)
-    //     .then(el5 => el5.json())
-    // Promise.all([videogamesApi, videogamesApi2,videogamesApi3,videogamesApi4, videogamesApi5])
-    //     .then((results) => {
-    //         const [videogamesApi, videogamesApi2, videogamesApi3, videogamesApi4, videogamesApi5] = results;
-    //         const resultado = videogamesApi.concat(videogamesApi2.concat(videogamesApi3.concat(videogamesApi4.concat(videogamesApi5))))
-    //         res.send(resultado)
-    //     })
+    const videogamesApi = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=4`)
+        .then(el => el.json())
+    const videogamesApi2 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=5`)
+        .then(el2 => el2.json())
+    const videogamesApi3 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=6`)
+        .then(el3 => el3.json())
+    const videogamesApi4 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=7`)
+        .then(el4 => el4.json())
+    const videogamesApi5 = fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=8`)
+        .then(el5 => el5.json())
+    Promise.all([videogamesApi, videogamesApi2,videogamesApi3,videogamesApi4, videogamesApi5])
+        .then((response) => {
+            const [videogamesApi, videogamesApi2, videogamesApi3, videogamesApi4, videogamesApi5] = response;
+            const resultado = videogamesApi.results.concat(videogamesApi2.results.concat(videogamesApi3.results.concat(videogamesApi4.results.concat(videogamesApi5.results))))
+            res.send(resultado)
+        })
     }
 
 
@@ -153,22 +158,7 @@ function filterByGenres(req,res,next){
                 videogamesApi5.results[i].genres.forEach(elem => {
                     if(elem.name===req.params.genre){apiFiltered.push(videogamesApi5.results[i])}})
             }
-            console.log('El arreglo de la Api es: '+apiFiltered)
-            console.log(req.params.genre)
-            var j=1;
-            // while (apirFiltered.length!==rest){
-            // j=j+1;
-            // fetch(`https://api.rawg.io/api/games?key=${YOUR_API_KEY}&page=${j}`)
-            //     .then(el => el.json())
-            //     .then((json) => {
-            //         for(var i=1;i<json.results.length;i++){
-            //             json.results[i].genres.forEach(elem => {
-            //                 if(elem.name===req.params.genre){json.push(json.results[i])}})
-            //             }})}
-            
             const response = apiFiltered.concat(dbFiltered)
-            // console.log(response)
-            var j=1;
             
             res.json(response);
         })

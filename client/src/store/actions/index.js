@@ -1,4 +1,4 @@
-const {YOUR_API_KEY} = process.env;
+const axios = require('axios');
 
 export function getVideogames() {
     return function(dispatch) {
@@ -19,16 +19,6 @@ export function getVideogames() {
       });
     };  
   };
-
-// export function getVideogameDetail(id){
-//     return function(dispatch) {
-//         return fetch(`http://localhost:3001/videogame/${id}`)        
-//           .then(response => response.json())
-//           .then(json => {
-//             dispatch({ type: "GET_VIDEOGAME_DETAIL", payload: json });
-//           });       
-//       };
-//   }
 
   export function addVideogames(body){
       return async function () {
@@ -57,16 +47,12 @@ export function getVideogames() {
       })
     }
  }
-
-const axios = require('axios');
-
-export const GET_VIDEOGAME_DETAIL = "GET_VIDEOGAME_DETAIL"
 export function getVideogameDetail(id) {
     return async function (dispatch) {
         return await axios.get(`http://localhost:3001/videogame/${id}`)
             .then((response) => {
                 dispatch({
-                    type: GET_VIDEOGAME_DETAIL,
+                    type: "GET_VIDEOGAME_DETAIL",
                     payload: response.data
                 })
             })
@@ -102,10 +88,11 @@ export function getVideogamesAPI(){
 }
 export function getVideogamesOrder(order,arreglo) {
   return function(dispatch) {
-    if(order==='Name A-Z'){ arreglo[0].sort((a, b)=> a.Nombre.localeCompare(b.Nombre) );}
-    if(order==='Name Z-A'){ arreglo[0].sort((a, b)=> b.Nombre.localeCompare(a.Nombre) )}
-    if(order==='Mayor Rating'){arreglo[0].sort((a, b)=> a.rating.localeCompare(b.rating))};
-    if(order==='Menor Rating'){arreglo[0].sort((a, b)=> b.rating.localeCompare(a.rating))}; 
- 
+    const videogames = arreglo.slice()
+    if(order==='Name A-Z') videogames.sort((a, b) => (a.name > b.name) ? 1 : -1)
+    if(order==='Name Z-A') videogames.sort((a, b) => (a.name > b.name) ? -1 : 1)
+    if(order==='Mayor Rating')videogames.sort((a, b) => (a.rating < b.rating) ? 1 : -1)
+    if(order==='Menor Rating')videogames.sort((a, b) => (a.rating < b.rating) ? -1 : 1)
+    dispatch({type:'ORDER_VIDEOGAMES', payload: videogames}) 
+   }
   }
-}

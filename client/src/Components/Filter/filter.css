@@ -33,7 +33,7 @@
   	outline: 0; 
   	border: 0;
 	border-radius: 0;
-	background: #b3b2b2;
+	background: #838383;
 	color:white;
 	font-size: 1em;
 	/* color: #999; */
@@ -46,7 +46,7 @@
 }
  
 .content-select select:hover{
-	background: #c761be;
+	background: #81347b;
 }
  
 /* 
@@ -69,4 +69,7 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
  
 .content-select:hover i{
 	margin-top: 3px;
+}
+.buttonSearch{
+	size:50px;
 }
