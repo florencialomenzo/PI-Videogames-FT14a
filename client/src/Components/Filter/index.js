@@ -25,6 +25,7 @@ function Filter(props){
     return(
         
         <div className='filtros'>
+            
             <div class="content-select">
             <label>ORDER BY: </label>
 	        <select onChange={handleSubmitOrder}>

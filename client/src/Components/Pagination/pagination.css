@@ -1,7 +1,55 @@
+.pagination-container{
+    background-color: rgba(0, 0, 0, 0.452);
+    width: 100vw;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination{
+ display: flex;
+ list-style: none;
+}
 .numbers{
-    color:black;
+    text-decoration: none;
+    color:white;
+    list-style: none;
     font-size: 20px;
+    padding: 14px;
+    margin: 5px;
+    padding-left: 20px;
+    padding-right:20px;
+  
+    cursor: pointer;
+}
+.numbers:hover{
+    transition: 0.2s;
+    color:rgb(0, 0, 0);
+    border-radius: 1000px;
+    background-color: #da89c8;
+   
+}
+.numbersActive{
+    background-color: #9e2584;
+    color:rgb(0, 0, 0);
+    border-radius: 1000px;
+    text-decoration: none;
+    list-style: none;
+    font-size: 20px;
+    padding: 14px;
+    margin: 5px;
+    padding-left: 20px;
+    padding-right:20px;
+    
+    cursor: pointer;
 }
 .pages{
     color: white;
+    font-size: 20px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 1px;
+
+}
+.paginationBlock{
+    display: flex;
 }

@@ -1,7 +1,6 @@
 
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import './Buscador.css';
-import {Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { searchVideogames } from '../../store/actions';
 import buscador from '../../buscador.png';
@@ -23,7 +22,7 @@ function Buscador(props){
            <div>
             <input className='input' type="text" autoComplete="off" placeholder='Search' value={state} onChange={(e) => handleChange(e)}/>
             {/* <button onClick={handleSubmit} type="submit" className='buscar'></button> */}
-            <img className='buscador' src={buscador} onClick={handleSubmit} width='40'/>
+            <img className='buscador' src={buscador} onClick={handleSubmit} width='40' alt='No se encontró la imagen'/>
             <i class="fa fa-search"></i>
           </div>
           

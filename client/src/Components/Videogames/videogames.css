@@ -1,6 +1,13 @@
+.Videogames-pagination{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
 .videogamesCard{
     background-color: #161616;
-    height: 100vh;
+    
     margin-top: 50px;
     margin-left: 100px;
     margin-right: 100px;
@@ -9,6 +16,8 @@
     flex-flow: row wrap;
     color:black;
     justify-content: space-between;
+
+
 }
 
 .videogameCard2{

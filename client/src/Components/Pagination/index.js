@@ -12,14 +12,16 @@ export default function Pagination(props){
 
     return(
       
-        <div>
-            <span className='pages'>{'Pages:    '}</span>
+        <div className='pagination-container'>
+            <span className='pages'>{'PAGES:    '}</span>
                {
-                   pageNumbers.map(number =>(
-                       <button>
-                           <a className='numbers' onClick={()=>props.paginate(number)}>{number}</a>
-                       </button>
-                   ))
+                <ul className='pagination'>
+                   {pageNumbers.map(number =>(
+                       <li>
+                           <a className={props.estado===number?'numbersActive':'numbers'} onClick={()=>props.paginate(number)}>{number}</a>
+                       </li>
+                   ))}
+                </ul>
                }
     
            
